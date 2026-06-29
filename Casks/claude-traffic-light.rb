@@ -13,9 +13,14 @@ cask "claude-traffic-light" do
   end
 
   depends_on formula: "jq"
-  depends_on macos: ">= :ventura"
+  depends_on macos: :ventura
 
   app "ClaudeTrafficLight.app"
+
+  zap trash: [
+    "~/.claude/menubar-state",
+    "~/Library/LaunchAgents/com.mitchelmckee.claudetrafficlight.plist",
+  ]
 
   caveats <<~EOS
     Claude Traffic Light wires its hooks into ~/.claude/settings.json on first
@@ -26,9 +31,4 @@ cask "claude-traffic-light" do
     ClaudeTrafficLight in /Applications and choose Open — or run:
       xattr -dr com.apple.quarantine "/Applications/ClaudeTrafficLight.app"
   EOS
-
-  zap trash: [
-    "~/.claude/menubar-state",
-    "~/Library/LaunchAgents/com.mitchelmckee.claudetrafficlight.plist",
-  ]
 end
