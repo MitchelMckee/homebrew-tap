@@ -1,6 +1,6 @@
 cask "claude-traffic-light" do
-  version "1.2.0"
-  sha256 "3adea13bb28157c075bbfa38725f547f278685d40014bdd869c4bee089edfae0"
+  version "1.2.1"
+  sha256 "6b91c8301508de0e8029475867da92d3ecb84b3806d6f8852266ea445c251897"
 
   url "https://github.com/MitchelMckee/claude-traffic-light/releases/download/v#{version}/ClaudeTrafficLight-#{version}.dmg"
   name "Claude Traffic Light"
