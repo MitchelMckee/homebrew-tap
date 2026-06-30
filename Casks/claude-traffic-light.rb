@@ -1,6 +1,6 @@
 cask "claude-traffic-light" do
-  version "1.3.0"
-  sha256 "dcedec96e6b13c2e2dca0d25254ea53528775fbadf38cb387498b2654e695bdd"
+  version "1.3.1"
+  sha256 "a1c1d33a0b129cf08b615339b4cd78786190c9797183ebe8c149dabed777bb03"
 
   url "https://github.com/MitchelMckee/claude-traffic-light/releases/download/v#{version}/ClaudeTrafficLight-#{version}.dmg"
   name "Claude Traffic Light"
@@ -19,7 +19,7 @@ cask "claude-traffic-light" do
 
   zap trash: [
     "~/.claude/menubar-state",
-    "~/Library/LaunchAgents/com.mitchelmckee.claudetrafficlight.plist",
+    "~/Library/LaunchAgents/com.mitchelmckee.claude-traffic-light.plist",
   ]
 
   caveats <<~EOS
