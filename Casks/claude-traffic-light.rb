@@ -17,6 +17,14 @@ cask "claude-traffic-light" do
 
   app "ClaudeTrafficLight.app"
 
+  # The app is ad-hoc signed (not notarized); without this, macOS 15+ shows a
+  # "damaged, move to Trash" dialog on first launch and there is no
+  # right-click → Open bypass anymore.
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-dr", "com.apple.quarantine", "#{appdir}/ClaudeTrafficLight.app"]
+  end
+
   zap trash: [
     "~/.claude/menubar-state",
     "~/Library/LaunchAgents/com.mitchelmckee.claude-traffic-light.plist",
@@ -27,8 +35,9 @@ cask "claude-traffic-light" do
     launch (it backs the file up first). Start a NEW Claude Code session
     afterwards to see it light up.
 
-    The app is not notarized. The first time you open it, right-click
-    ClaudeTrafficLight in /Applications and choose Open — or run:
+    The app is not notarized, so Homebrew removes its quarantine flag after
+    install. If macOS still refuses to open it, run:
       xattr -dr com.apple.quarantine "/Applications/ClaudeTrafficLight.app"
+    or approve it under System Settings → Privacy & Security → Open Anyway.
   EOS
 end
