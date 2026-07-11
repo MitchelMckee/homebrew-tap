@@ -15,15 +15,20 @@ cask "simlens" do
   app "SimLens.app"
   binary "#{appdir}/SimLens.app/Contents/MacOS/simlensctl"
 
+  postflight do
+    # SimLens is ad-hoc signed open source, not notarized, and Homebrew 6
+    # removed --no-quarantine — without this Gatekeeper refuses to launch it.
+    system_command "/usr/bin/xattr",
+                   args: ["-dr", "com.apple.quarantine", "#{appdir}/SimLens.app"]
+  end
+
   zap trash: [
     "~/Library/Application Support/SimLens",
   ]
 
   caveats <<~EOS
-    SimLens is ad-hoc signed (not notarized). If macOS refuses to open it,
-    either right-click SimLens.app -> Open the first time, or install with:
-
-      brew install --cask simlens --no-quarantine
+    SimLens is ad-hoc signed open source (not notarized); this cask clears
+    the Gatekeeper quarantine flag on the installed app.
 
     Start SimLens, boot a simulator, and any app launched in it sees a
     working camera. Control it with `simlensctl`.
